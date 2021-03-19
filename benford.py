@@ -1,4 +1,5 @@
 from protein_lengths import naa
+from scrapNBA import scrape
 import pandas as pd
 import numpy as np
 import sys
@@ -34,9 +35,7 @@ def scan_fib():
 
 def scan_county():
     #Open file from command line input. 
-    #with open(sys.argv[1],'r') as data:
-         
-    with open('C:/Users\johnn\Desktop\py\CSCI 236\program-05-benfordslaw-johnnyw827\county.txt','r') as data:
+    with open(sys.argv[1],'r') as data:
         df_count = pd.DataFrame(data = data, columns = ['Digit'])
     #Get the leftmost number. Cast as string and get index 0. 
     df_count = df_count['Digit'].astype(str).str[0]
@@ -47,9 +46,27 @@ def scan_county():
     df_county.insert(1, 'Percent', df_count.value_counts(1).mul(100))
     print(df_county)
 
-
+def scan_nba():
+    #Open file from command line input. 
+    #with open(sys.argv[1],'r') as data:
+    with open('nbafile.txt','r') as data:
+        df_nba = pd.DataFrame(data = data, columns = ['Digit'])
+    #df_nba = df_nba['Digit'].astype(float)
+    df_nba.columns = df_nba.columns.str.replace(' ','')
+    
+ 
+    """"
+df_nba = pd.DataFrame(ls2)
+df_nba.columns = ['height']
+df_nba = df_nba['height'].astype(str)
+df_nba.str.strip
+df_test = pd.DataFrame()
+df_test.insert(0,'height',df_nba)
+df_test['height'] = df_test['height'].astype(float)
+"""
 
 def main():
+
     try:
         if sys.argv[1] == 'fib500.txt':
             scan_fib()
@@ -57,7 +74,9 @@ def main():
             scan_protein()
         elif sys.argv[1] == 'county.txt':
             scan_county()
+        elif sys.argv[1] == 'nbafile.txt':
+            scan_nba()
     except:
         print("Please enter fib.txt, protein.txt, or county.txt in the command line.")
 
-main()
+scan_nba()
