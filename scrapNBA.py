@@ -9,5 +9,10 @@ height_list = []
 data = requests.get(nbawebsite)
 soup = BeautifulSoup(data.text,'html.parser')
 
-height_tables = soup.findAll(class_='wp-block-table is-style-stripes')
-height_tables.find_all('tbody')
+#height_tables = soup.findAll('td')
+#print(height_tables[14].get_text())
+
+tables = soup.find(class_='wp-block-table is-style-stripes')
+for tr in tables.findAll('tr'):
+    place = tr.findAll('td')[1].text
+    print(place[0])
